@@ -54,6 +54,8 @@ class Hand:
     def add_card(self, card):
         self.cards.append(card)
         self.value += values[card.rank]
+        if card.rank == 'Ace':
+            self.aces += 1
 
     def adjust_for_ace(self):
         while self.value > 21 and self.aces:
@@ -71,5 +73,5 @@ class Bank:
         self.total += self.bet
 
     def lose_bet(self):
-        self.total -= self.total - 10
+        self.total -= self.bet
 

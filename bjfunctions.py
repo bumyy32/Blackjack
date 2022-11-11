@@ -1,13 +1,17 @@
+from colorama import Fore, Back, Style
+from bjclass import *
+
+
 # Functions:
 def take_bet(bank):
     while True:
         try:
-            bank.bet = int(input("Please, enter your bet: "))
+            bank.bet = int(input(Fore.CYAN + "Please, enter your bet: "))
         except ValueError:
-            print("Sorry, bet must be a number!")
+            print(Fore.RED + "Sorry, bet must be a number!")
         else:
             if bank.bet > bank.total:
-                print("Not enough cash! You have: ", bank.total)
+                print(Fore.RED + "Not enough cash! You have: ", bank.total)
             else:
                 break
 
@@ -21,55 +25,55 @@ def hit_or_stand(deck, hand):
     global playing  # using this to control a upcoming loop.
 
     while True:
-        x = input("Would you like to hit (H) or stand (S) ?: ")
+        x = input(Fore.CYAN + "Would you like to hit (H) or stand (S) ?: ")
 
         if x[0].lower() == 'h':
             hit(deck, hand)  # Using hit above.
 
         elif x[0].lower() == 's':
-            playing = False
+            print(Fore.WHITE + "The dealer is playing")
+            playing: bool = False
 
         else:
-            print("Try again, using H for Hit and S for Stand!")
+            print(Fore.RED + "Try again, using H for Hit and S for Stand!")
             continue
         break
 
 
 def show_some(player, dealer):
-    print("\nDealer's Hand:")
-    print(" <card hidden>")
-    print('', dealer.cards[1])
-    print("\nPlayer's Hand:", *player.cards, sep='\n ')
+    print(Fore.MAGENTA + "\nDealer's Hand:")
+    print(Fore.MAGENTA + " <card hidden>")
+    print(Fore.MAGENTA + '', dealer.cards[1])
+    print(Fore.BLUE + "\nPlayer's Hand:", *player.cards, sep='\n ')
 
 
 def show_all(player, dealer):
-    print("\nDealer's Hand:", *dealer.cards, sep='\n ')
-    print("Dealer's Hand =", dealer.value)
-    print("\nPlayer's Hand:", *player.cards, sep='\n ')
-    print("Player's Hand =", player.value)
+    print(Fore.MAGENTA + "\nDealer's Hand:", *dealer.cards, sep='\n ')
+    print(Fore.MAGENTA + "Dealer's Hand =", dealer.value)
+    print(Fore.BLUE + "\nPlayer's Hand:", *player.cards, sep='\n ')
+    print(Fore.BLUE + "Player's Hand =", player.value)
 
 
 # endgames:
 def player_bust(player, dealer, bank):
-    print("Player busted!")
+    print(Fore.RED + "Player busted!")
     bank.lose_bet()
 
 
 def player_wins(player, dealer, bank):
-    print("Player wins!")
+    print(Fore.GREEN + "Player wins!")
     bank.win_bet()
 
 
 def dealer_bust(player, dealer, bank):
-    print("Dealer busted!")
+    print(Fore.MAGENTA + "Dealer busted!")
     bank.win_bet()
 
 
 def dealer_wins(player, dealer, bank):
-    print("Dealer wins!")
+    print(Fore.MAGENTA + "Dealer wins!")
     bank.lose_bet()
 
 
 def push(player, dealer):
-    print("Dealer and player tie! It's a push!")
-
+    print(Fore.CYAN + "Dealer and player tie! It's a push!")
